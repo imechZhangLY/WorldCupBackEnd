@@ -1,0 +1,14 @@
+{
+  "name": "worldcupbackend",
+  "version": "1.0.0",
+  "description": "微信小程序后端服务，提供静态资源",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "史科郎",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
