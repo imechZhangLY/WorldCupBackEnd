@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 
-app.set('port', process.env.PORT || 8080);
-app.set('host', process.env.HOST || '139.199.10.189')
+app.set('port', process.env.PORT || 80);
+app.set('host', process.env.HOST || '0.0.0.0')
 
 const port = app.get('port'),
 	ip = app.get('host')
