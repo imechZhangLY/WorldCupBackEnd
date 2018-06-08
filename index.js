@@ -28,8 +28,10 @@ httpsServer.listen(httpsPort, ip, () => {
 
 app.get('/', (req, res) => {
 	if(req.protocol === 'https') {
+		console.log('访问主页')
 		res.status(200).send('欢迎通过https访问史科郎')
 	}else{
+		console.log('访问主页')
 		res.status(200).send('欢迎访问史科郎')
 	}
 })
