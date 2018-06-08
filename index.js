@@ -1,17 +1,35 @@
-const express = require('express')
-const app = express()
+const express = require('express'),
+	http = require('http'),
+	https = require('https')
+	fs = require('fs')
 
-app.set('port', process.env.PORT || 80);
-app.set('host', process.env.HOST || '172.16.0.15')
+const app = express(),
+	httpPort = 80,
+	httpsPort = 443,
+	ip = '172.16.0.15',
+	privateKey = fs.readFileSync(__dirname + '/ssl/2_www.shikelong.cn.key'),
+	certificate = fs.readFileSync(__dirname + '/ssl/1_www.shikelong.cn_bundle.crt'),
+	options = {key: privateKey, cert: certificate}
 
-const port = app.get('port'),
-	ip = app.get('host')
-
-console.log(port)
-console.log(ip)
+console.log(options)
 
 app.use(express.static('public'))
 
-app.listen(port, ip, () => {
-	console.log("服务器运行在" + ip + ":" + port)
+const httpServer = http.createServer(app),
+	httpsServer = https.createServer(options, app)
+
+httpServer.listen(httpPort, ip, () => {
+	console.log("服务器运行在" + ip + ":" + httpPort)
+})
+
+httpsServer.listen(httpsPort, ip, () => {
+	console.log("服务器运行在" + ip + ":" + httpsPort)
+})
+
+app.get('/', (req, res) => {
+	if(req.protocol === 'https') {
+		res.status(200).send('欢迎通过https访问史科郎')
+	}else{
+		res.status(200).send('欢迎访问史科郎')
+	}
 })
